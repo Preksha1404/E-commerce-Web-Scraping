@@ -1,15 +1,23 @@
 from bs4 import BeautifulSoup
 import requests
 
-url="https://www.amazon.in/s?k=iphone&crid=379QTXVWDOLLR&sprefix=iphone%2Caps%2C328&ref=nb_sb_noss_2"
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+url="https://books.toscrape.com/"
 
-r=requests.get(url, headers=headers)
+r=requests.get(url)
 
-soup=BeautifulSoup(r.content, 'html.parser')
-print(soup.prettify())
+soup=BeautifulSoup(r.text, 'html.parser')
+# print(soup.prettify())
 
-# product_name=soup.find("h2", class_="a-size-medium a-spacing-none a-color-base a-text-normal")
-# product_price=soup.find("span", class_="a-price-whole")
+product_containers=soup.find_all("div",class_="image_container")
+# for container in product_containers:
+#     product_name=container.img["alt"]
+    # print(product_name)
 
-# print(product_name, product_price)
+product_prices=soup.find_all("div", class_="product_price")
+
+# for price in product_prices:
+#     product_price=price.p.text
+    # print(product_price)
+
+for i in range(len(product_containers)):
+    print(f"Product Name: {product_containers[i].img['alt']}, Price: {product_prices[i].p.text}")
