@@ -3,9 +3,9 @@ import requests
 
 url="https://books.toscrape.com/"
 
-r=requests.get(url)
+r=requests.get(url) # To send a GET request to the URL
 
-soup=BeautifulSoup(r.text, 'html.parser')
+soup=BeautifulSoup(r.text, 'html.parser') # To parse the HTML content of the page
 # print(soup.prettify())
 
 product_containers=soup.find_all("div",class_="image_container")
